@@ -79,7 +79,7 @@ namespace ProjectDone
             if (btnSubmit.Text == "Submit")
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("insert into Students(Name,Address,Email,Password, Gender , Designation)values('" + txtName.Text + "','" + txtAddress.Text + "','" + rblGender.SelectedValue + "','" + ddlDesignation.SelectedValue + "')", con);
+                SqlCommand cmd = new SqlCommand("insert into Students(Name,Address,Email,Password, Gender , Designation)values('" + txtName.Text + "','" + txtAddress.Text + "','"+txtemail.Text+"','"+txtpassword.Text+"','" + rblGender.SelectedValue + "','" + ddlDesignation.SelectedValue + "')", con);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
