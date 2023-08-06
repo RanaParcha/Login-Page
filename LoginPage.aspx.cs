@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace ProjectDone
 {
@@ -19,8 +20,19 @@ namespace ProjectDone
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("",con);
+            SqlCommand cmd = new SqlCommand("select * from students where email='"+txtemail.Text+"' and password='"+txtpassword.Text+"'", con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
             con.Close();
+            if(dt.Rows.Count > 0)
+            {
+                Response.Redirect("Home.aspx");
+            }
+            else if(dt.Rows.Count > 0)
+            {
+
+            }
         }
     }
 }

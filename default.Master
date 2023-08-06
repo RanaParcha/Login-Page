@@ -26,7 +26,7 @@
                     <td>
                         <div id="menu">
 		<ul class="menu">
-			
+			<li class="last"><a href="LoginPage.aspx"><span>Login</span></a></li>
 			<li class="last"><a href="showUser.aspx"><span>List of new users</span></a></li>
 		</ul>
 	</div>
