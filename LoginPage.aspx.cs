@@ -27,6 +27,7 @@ namespace ProjectDone
             con.Close();
             if(dt.Rows.Count > 0)
             {
+                Session["UIDO"] = dt.Rows[0]["id"];
                 Response.Redirect("Home.aspx");
             }
             else if(dt.Rows.Count > 0)
