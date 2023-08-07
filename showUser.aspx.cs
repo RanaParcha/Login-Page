@@ -22,7 +22,8 @@ namespace ProjectDone
         public void Bindgrid()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from Students join tGender on Gender= gid join stDesignation on Designation = did", con);
+            SqlCommand cmd = new SqlCommand("User_Join", con);
+            cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -38,7 +39,9 @@ namespace ProjectDone
             if(e.CommandName == "D")
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("Delete from students where id= '" + e.CommandArgument + "'", con);
+                SqlCommand cmd = new SqlCommand("Usere_Delete", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id",e.CommandArgument);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Bindgrid();
@@ -52,7 +55,7 @@ namespace ProjectDone
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 con.Close();
-
+                
                 Response.Redirect("UserRegistrationform.aspx?pp=" + e.CommandArgument);
             }
 
@@ -61,7 +64,9 @@ namespace ProjectDone
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from students join tGender on Gender= gid join stDesignation on Designation = did where name like '"+txtSearch.Text+ "%'or dname like '"+txtSearch.Text+ "%'or tname like '"+txtSearch.Text+"%'", con);
+            SqlCommand cmd = new SqlCommand("User_Search", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@search", txtSearch.Text);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);

@@ -32,7 +32,9 @@ namespace ProjectDone
         public void EditRecord()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from students join tGender on Gender= gid join stDesignation on Designation = did where id = '"+ Request.QueryString["pp"] + "'", con);
+            SqlCommand cmd = new SqlCommand("Users_Edit", con);
+            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
+            cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -49,7 +51,8 @@ namespace ProjectDone
         public void BindGender()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from tGender", con);
+            SqlCommand cmd = new SqlCommand("Gender_Get", con);
+            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -63,7 +66,8 @@ namespace ProjectDone
         public void BindDesignation()
         {
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from stDesignation", con);
+            SqlCommand cmd = new SqlCommand("Designation_Get", con);
+            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -79,7 +83,14 @@ namespace ProjectDone
             if (btnSubmit.Text == "Submit")
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("insert into Students(Name,Address,Email,Password, Gender , Designation)values('" + txtName.Text + "','" + txtAddress.Text + "','"+txtemail.Text+"','"+txtpassword.Text+"','" + rblGender.SelectedValue + "','" + ddlDesignation.SelectedValue + "')", con);
+                SqlCommand cmd = new SqlCommand("User_Ins", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Name", txtName.Text);
+                cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
+                cmd.Parameters.AddWithValue("@Email", txtemail.Text);
+                cmd.Parameters.AddWithValue("@Password", txtpassword.Text);
+                cmd.Parameters.AddWithValue("@Gender", rblGender.SelectedValue);
+                cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
@@ -87,12 +98,15 @@ namespace ProjectDone
             else if (btnSubmit.Text == "Update") 
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE students SET Name = @Name, Address = @Address, Gender = @Gender, Designation = @Designation WHERE id = @Id", con);
+                SqlCommand cmd = new SqlCommand("User_Updated", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);  
                 cmd.Parameters.AddWithValue("@Name", txtName.Text);
                 cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
+                cmd.Parameters.AddWithValue("@Email", txtAddress.Text);
+                cmd.Parameters.AddWithValue("@Password", txtAddress.Text);
                 cmd.Parameters.AddWithValue("@Gender", rblGender.SelectedValue);
-                cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
-                cmd.Parameters.AddWithValue("@Id", Request.QueryString["pp"]);
+                cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue); 
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
