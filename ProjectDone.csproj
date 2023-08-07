@@ -72,6 +72,7 @@
     <Content Include="Edit.png" />
     <Content Include="footer.ascx" />
     <Content Include="header.ascx" />
+    <Content Include="Home.aspx" />
     <Content Include="images\item-pointer-mover.gif" />
     <Content Include="images\item-pointer.gif" />
     <Content Include="images\lava.gif" />
@@ -109,6 +110,13 @@
     </Compile>
     <Compile Include="header.ascx.designer.cs">
       <DependentUpon>header.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
