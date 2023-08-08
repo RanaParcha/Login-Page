@@ -52,7 +52,7 @@ namespace ProjectDone
         {
             con.Open();
             SqlCommand cmd = new SqlCommand("Gender_Get", con);
-            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
+            cmd.Parameters.AddWithValue("@id", Request.QueryString["pp"]);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
