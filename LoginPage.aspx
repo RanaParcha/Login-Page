@@ -21,7 +21,6 @@
             <td></td>
             <td><asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" BackColor="red" ForeColor="White" Width="70px" Height="25px"/> </td>
         </tr>
-
         <tr>
             <td></td>
             <td><asp:Label ID="lblmsg" runat="server"></asp:Label> </td>

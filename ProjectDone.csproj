@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1.JPG" />
+    <Content Include="Changepassword.aspx" />
     <Content Include="delete.png" />
     <Content Include="Edit.png" />
     <Content Include="footer.ascx" />
@@ -81,6 +82,7 @@
     <Content Include="images\main-delimiter.png" />
     <Content Include="jquery.js" />
     <Content Include="LoginPage.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="menu.css" />
     <Content Include="menu.js" />
     <Content Include="showUser.aspx" />
@@ -90,6 +92,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Changepassword.aspx.cs">
+      <DependentUpon>Changepassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Changepassword.aspx.designer.cs">
+      <DependentUpon>Changepassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="default.Master.cs">
       <DependentUpon>default.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -125,6 +134,13 @@
     <Compile Include="LoginPage.aspx.designer.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="showUser.aspx.cs">
       <DependentUpon>showUser.aspx</DependentUpon>
@@ -139,6 +155,13 @@
     </Compile>
     <Compile Include="Studentsform.aspx.designer.cs">
       <DependentUpon>Studentsform.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User.Master.cs">
+      <DependentUpon>User.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User.Master.designer.cs">
+      <DependentUpon>User.Master</DependentUpon>
     </Compile>
     <Compile Include="UserForm.aspx.cs">
       <DependentUpon>UserForm.aspx</DependentUpon>
@@ -158,6 +181,7 @@
   <ItemGroup>
     <Content Include="default.Master" />
     <None Include="packages.config" />
+    <Content Include="User.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
