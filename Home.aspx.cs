@@ -25,7 +25,7 @@ namespace ProjectDone
             con.Open();
             SqlCommand cmd = new SqlCommand("User_Join_once", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id", Session["UIDO"]);
+            cmd.Parameters.AddWithValue("@id", Session["id"]);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);

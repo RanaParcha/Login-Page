@@ -18,12 +18,16 @@ namespace ProjectDone
             { 
                 BindGender();
                 BindDesignation();
+                ShowCountry();
+                ddlState.Items.Insert(0, new ListItem("--Select--", "0"));
+                ddlState.Enabled = false;
             }
             if(Request.QueryString["pp"] != null && Request.QueryString["pp"].ToString() != "")
             {
                 if (!IsPostBack)
                 {
                     EditRecord();
+                    
                 }
             }
         }
@@ -33,18 +37,23 @@ namespace ProjectDone
         {
             con.Open();
             SqlCommand cmd = new SqlCommand("Users_Edit", con);
-            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id", Request.QueryString["pp"]);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
             con.Close();
-            con.Close();
+            //con.Close();
             //POPULATING RECORD IN THE FIELD
             txtName.Text = dt.Rows[0]["Name"].ToString();
             txtAddress.Text = dt.Rows[0]["Address"].ToString();
+            txtemail.Text = dt.Rows[0]["Email"].ToString();
+            txtemail.Text = dt.Rows[0]["Password"].ToString();
             rblGender.SelectedValue = dt.Rows[0]["Gender"].ToString();
             ddlDesignation.SelectedValue = dt.Rows[0]["Designation"].ToString();
+            ddlCountry.SelectedValue = dt.Rows[0]["Country"].ToString();
+            ShowState();
+            ddlState.SelectedValue = dt.Rows[0]["State"].ToString();
             btnSubmit.Text = "Update";
         }
 
@@ -52,7 +61,7 @@ namespace ProjectDone
         {
             con.Open();
             SqlCommand cmd = new SqlCommand("Gender_Get", con);
-            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
+            cmd.CommandType= CommandType.StoredProcedure;
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -67,7 +76,6 @@ namespace ProjectDone
         {
             con.Open();
             SqlCommand cmd = new SqlCommand("Designation_Get", con);
-            cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             sda.Fill(dt);
@@ -76,6 +84,38 @@ namespace ProjectDone
             ddlDesignation.DataTextField = "dname";
             ddlDesignation.DataSource = dt;
             ddlDesignation.DataBind();
+        }
+
+        public void ShowCountry()
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select * from tblcountry1", con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            con.Close();
+            ddlCountry.DataValueField = "cid";
+            ddlCountry.DataTextField = "cname";
+            ddlCountry.DataSource = dt;
+            ddlCountry.DataBind();
+            ddlCountry.Items.Insert(0, new ListItem("--Select--", "0"));
+        }
+
+        public void ShowState()
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select * from tblState where cid='"+ddlCountry.SelectedValue+"'", con);
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            con.Close();
+            ddlState.Enabled = true;
+            ddlState.DataValueField = "sid";
+            ddlState.DataTextField = "sname";
+            ddlState.DataSource = dt;
+            ddlState.DataBind();
+            ddlState.Items.Insert(0, new ListItem("--Select--", "0"));
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -91,6 +131,8 @@ namespace ProjectDone
                 cmd.Parameters.AddWithValue("@Password", txtpassword.Text);
                 cmd.Parameters.AddWithValue("@Gender", rblGender.SelectedValue);
                 cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
+                cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
@@ -100,19 +142,27 @@ namespace ProjectDone
                 con.Open();
                 SqlCommand cmd = new SqlCommand("User_Updated", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("id", Request.QueryString["pp"]);  
+                cmd.Parameters.AddWithValue("@id", Request.QueryString["pp"]);  
                 cmd.Parameters.AddWithValue("@Name", txtName.Text);
                 cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
                 cmd.Parameters.AddWithValue("@Email", txtAddress.Text);
                 cmd.Parameters.AddWithValue("@Password", txtAddress.Text);
                 cmd.Parameters.AddWithValue("@Gender", rblGender.SelectedValue);
-                cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue); 
+                cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
+                cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
                 btnSubmit.Text = "Submit";
             }
+
             
+        }
+
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowState();
         }
     }
 }

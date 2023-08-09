@@ -36,6 +36,16 @@
                 </asp:DropDownList> </td>
         </tr>
 
+          <tr>
+            <td>Country</td>
+            <td><asp:DropDownList ID="ddlCountry" runat="server" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" ></asp:DropDownList> </td>
+        </tr>
+
+         <tr>
+            <td>State</td>
+            <td><asp:DropDownList ID="ddlState" runat="server"></asp:DropDownList> </td>
+        </tr>
+
          <tr>
             <td></td>
             <td><asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" BackColor="red" ForeColor="White" Width="70px" Height="25px"/> </td>
