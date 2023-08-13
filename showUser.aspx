@@ -70,6 +70,24 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Country">
+                            <ItemTemplate>
+                                <%#Eval("cname") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="State">
+                            <ItemTemplate>
+                                <%#Eval("sname") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Image">
+                            <ItemTemplate>
+                                <asp:Image ID="img1" runat="server" Width="50px" Height="40px" ImageUrl='<%#Eval("image","~/Pics/{0}") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:ImageButton ID="Delete_btn" runat="server" ImageUrl="~/delete.png" CommandName="D" CommandArgument='<%#Eval("id") %>' style="height:20px; width:20px" />

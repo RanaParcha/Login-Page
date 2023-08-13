@@ -51,6 +51,25 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Country">
+                            <ItemTemplate>
+                                <%#Eval("Country") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="State">
+                            <ItemTemplate>
+                                <%#Eval("State") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Image">
+                            <ItemTemplate>
+                                <%#Eval("Image") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:ImageButton ID="Delete_btn" runat="server" ImageUrl="~/delete.png" CommandName="D" CommandArgument='<%#Eval("id") %>' style="height:20px; width:20px" />

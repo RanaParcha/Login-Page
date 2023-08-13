@@ -50,7 +50,7 @@ namespace ProjectDone
             else if (e.CommandName == "E")
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("select * from students join tGender on Gender= gid join stDesignation on Designation = did where id = '" + e.CommandArgument + "'", con);
+                SqlCommand cmd = new SqlCommand("select * from Students join tGender on Gender= gid join stDesignation on Designation = did where id = '" + e.CommandArgument + "'", con);
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
@@ -73,7 +73,7 @@ namespace ProjectDone
             con.Close();
             if(dt.Rows.Count > 0)
             {
-                gvUser.DataSource = null;
+                gvUser.DataSource = dt;
                 gvUser.DataBind();
                 lblmsg.Text = "Results!!";
             }
