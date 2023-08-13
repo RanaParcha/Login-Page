@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 
 namespace ProjectDone
 {
@@ -48,12 +49,13 @@ namespace ProjectDone
             txtName.Text = dt.Rows[0]["Name"].ToString();
             txtAddress.Text = dt.Rows[0]["Address"].ToString();
             txtemail.Text = dt.Rows[0]["Email"].ToString();
-            txtemail.Text = dt.Rows[0]["Password"].ToString();
+            txtpassword.Text = dt.Rows[0]["Password"].ToString();
             rblGender.SelectedValue = dt.Rows[0]["Gender"].ToString();
             ddlDesignation.SelectedValue = dt.Rows[0]["Designation"].ToString();
             ddlCountry.SelectedValue = dt.Rows[0]["Country"].ToString();
             ShowState();
             ddlState.SelectedValue = dt.Rows[0]["State"].ToString();
+            ViewState["img"] = dt.Rows[0]["image"].ToString();
             btnSubmit.Text = "Update";
         }
 
@@ -122,6 +124,8 @@ namespace ProjectDone
         {
             if (btnSubmit.Text == "Submit")
             {
+                string RP = Path.GetFileName(fimage.PostedFile.FileName);
+                fimage.SaveAs(Server.MapPath("Pics" + "\\" + RP));
                 con.Open();
                 SqlCommand cmd = new SqlCommand("User_Ins", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -133,31 +137,34 @@ namespace ProjectDone
                 cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
                 cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                 cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
+                cmd.Parameters.AddWithValue("@image",RP);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
             }
             else if (btnSubmit.Text == "Update") 
             {
+                string RP = Path.GetFileName(fimage.PostedFile.FileName);
+                fimage.SaveAs(Server.MapPath("Pics" + "\\" + RP));
+                File.Delete(Server.MapPath("Pics" + "\\" + ViewState["img"]));
                 con.Open();
                 SqlCommand cmd = new SqlCommand("User_Updated", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", Request.QueryString["pp"]);  
                 cmd.Parameters.AddWithValue("@Name", txtName.Text);
                 cmd.Parameters.AddWithValue("@Address", txtAddress.Text);
-                cmd.Parameters.AddWithValue("@Email", txtAddress.Text);
-                cmd.Parameters.AddWithValue("@Password", txtAddress.Text);
+                cmd.Parameters.AddWithValue("@Email", txtemail.Text);
+                cmd.Parameters.AddWithValue("@Password", txtpassword.Text);
                 cmd.Parameters.AddWithValue("@Gender", rblGender.SelectedValue);
                 cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
                 cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                 cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
+                cmd.Parameters.AddWithValue("@image", RP);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
                 btnSubmit.Text = "Submit";
             }
-
-            
         }
 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)

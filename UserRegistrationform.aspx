@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/default.Master" AutoEventWireup="true" CodeBehind="UserRegistrationform.aspx.cs" Inherits="ProjectDone.UserRegistrationform" %>
+﻿
+<%@ Page Title="" Language="C#" MasterPageFile="~/default.Master" AutoEventWireup="true" CodeBehind="UserRegistrationform.aspx.cs" Inherits="ProjectDone.UserRegistrationform" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -15,13 +16,9 @@
 
         <tr>
             <td>Email</td>
-            <td><asp:TextBox ID="txtemail" runat="server"></asp:TextBox> </td>
+            <td><asp:TextBox ID="txtemail" TextMode="Email" runat="server"></asp:TextBox> </td>
         </tr>
 
-        <tr>
-            <td>Password</td>
-            <td><asp:TextBox ID="txtpassword" runat="server"></asp:TextBox> </td>
-        </tr>
 
          <tr>
             <td>Gender</td>
@@ -44,6 +41,16 @@
          <tr>
             <td>State</td>
             <td><asp:DropDownList ID="ddlState" runat="server"></asp:DropDownList> </td>
+        </tr>
+
+        <tr>
+            <td>Image</td>
+            <td><asp:FileUpload ID="fimage" runat="server" /> </td>
+        </tr>
+        
+        <tr>
+            <td>Password</td>
+            <td><asp:TextBox ID="txtpassword" TextMode="Password" runat="server"></asp:TextBox> </td>
         </tr>
 
          <tr>
