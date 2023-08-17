@@ -64,6 +64,12 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="Hobbies">
+                            <ItemTemplate>
+                                <%#Eval("Hobbies") %>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Designation">
                             <ItemTemplate>
                                 <%#Eval("dname") %>
