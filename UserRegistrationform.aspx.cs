@@ -20,6 +20,7 @@ namespace ProjectDone
                 BindGender();
                 BindDesignation();
                 ShowCountry();
+                Bindhobbies();
                 ddlState.Items.Insert(0, new ListItem("--Select--", "0"));
                 ddlState.Enabled = false;
             }
@@ -74,6 +75,21 @@ namespace ProjectDone
             rblGender.DataBind();
         }
 
+        public void Bindhobbies()
+        {
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Hobbies_Get", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            con.Close();
+            cblhobbies.DataValueField = "hid";
+            cblhobbies.DataTextField = "hname";
+            cblhobbies.DataSource = dt;
+            cblhobbies.DataBind();
+        }
+
         public void BindDesignation()
         {
             con.Open();
@@ -124,6 +140,34 @@ namespace ProjectDone
         {
             if (btnSubmit.Text == "Submit")
             {
+                string RR = "";
+                if (cblhobbies.Items[0].Selected == true)
+                {
+                    RR += cblhobbies.Items[0].Text;
+                }
+                if (cblhobbies.Items[1].Selected == true)
+                {
+                    RR += cblhobbies.Items[1].Text;
+                }
+                if (cblhobbies.Items[2].Selected == true)
+                {
+                    RR += cblhobbies.Items[2].Text;
+                }
+                if (cblhobbies.Items[3].Selected == true)
+                {
+                    RR += cblhobbies.Items[3].Text;
+                }
+                if (cblhobbies.Items[4].Selected == true)
+                {
+                    RR += cblhobbies.Items[4].Text;
+                }
+                if (cblhobbies.Items[5].Selected == true)
+                {
+                    RR += cblhobbies.Items[5].Text;
+                }
+
+
+                { 
                 string RP = Path.GetFileName(fimage.PostedFile.FileName);
                 fimage.SaveAs(Server.MapPath("Pics" + "\\" + RP));
                 con.Open();
@@ -134,6 +178,7 @@ namespace ProjectDone
                 cmd.Parameters.AddWithValue("@Email", txtemail.Text);
                 cmd.Parameters.AddWithValue("@Password", txtpassword.Text);
                 cmd.Parameters.AddWithValue("@Gender", rblGender.SelectedValue);
+                cmd.Parameters.AddWithValue("@Hobbies",RR);
                 cmd.Parameters.AddWithValue("@Designation", ddlDesignation.SelectedValue);
                 cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                 cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
@@ -141,6 +186,7 @@ namespace ProjectDone
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");
+                }
             }
             else if (btnSubmit.Text == "Update") 
             {
@@ -160,6 +206,7 @@ namespace ProjectDone
                 cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
                 cmd.Parameters.AddWithValue("@State", ddlState.SelectedValue);
                 cmd.Parameters.AddWithValue("@image", RP);
+                cmd.Parameters.AddWithValue("@Hobbies", cblhobbies.SelectedValue);
                 cmd.ExecuteNonQuery();
                 con.Close();
                 Response.Redirect("showUser.aspx");

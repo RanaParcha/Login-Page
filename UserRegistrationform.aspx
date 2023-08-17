@@ -19,10 +19,20 @@
             <td><asp:TextBox ID="txtemail" TextMode="Email" runat="server"></asp:TextBox> </td>
         </tr>
 
+        <tr>
+            <td>Password</td>
+            <td><asp:TextBox ID="txtpassword" runat="server"></asp:TextBox> </td>
+        </tr>
+
 
          <tr>
             <td>Gender</td>
             <td><asp:RadioButtonList ID="rblGender" runat="server" RepeatColumns="3"></asp:RadioButtonList> </td>
+        </tr>
+
+        <tr>
+            <td>Hobbies</td>
+            <td><asp:CheckBoxList ID="cblhobbies" runat="server" RepeatColumns="6"></asp:CheckBoxList> </td>
         </tr>
 
 
@@ -48,10 +58,6 @@
             <td><asp:FileUpload ID="fimage" runat="server" /> </td>
         </tr>
         
-        <tr>
-            <td>Password</td>
-            <td><asp:TextBox ID="txtpassword" TextMode="Password" runat="server"></asp:TextBox> </td>
-        </tr>
 
          <tr>
             <td></td>
